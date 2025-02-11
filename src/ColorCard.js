@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './styles/ColorCard.css';
 
-
-
-function ColorCard({option, setResult }) {
+function ColorCard({ option, setResult }) {
   const options = ['🏔️', '📄', '✂️'];
-  const end = { WIN: ['🏆', 'YOU WON!'], LOSS: ['🥀', 'YOU LOST'], DRAW: ['⚖️', "IT'S A DRAW"] };
+  const end = { 
+    WIN: ['🏆', 'YOU WON!'], 
+    LOSS: ['🥀', 'YOU LOST'], 
+    DRAW: ['⚖️', "IT'S A DRAW"] 
+  };
   const colorMap = {
     '🏔️': 'blue',
     '📄': 'yellow',
@@ -15,6 +17,7 @@ function ColorCard({option, setResult }) {
   const icon = option;
 
   const handleClick = () => {
+
     let result = options[Math.floor(Math.random() * options.length)];
     const results = {
       '🏔️': { '📄': end.LOSS, '✂️': end.WIN },
@@ -22,19 +25,20 @@ function ColorCard({option, setResult }) {
       '✂️': { '🏔️': end.LOSS, '📄': end.WIN }
     };
 
-    result = results[option][result];
-    if (!result) result = end.DRAW;
-  
-    console.log(result);
+    result = results[option][result] || end.DRAW;
     setResult(result);
+    console.log(...result);
   };
+
+  const buttonProps = {
+    style: { '--color': color },
+    onClick: handleClick, // Still needed, but now it's outside JSX
+  };
+  
   
   return (
     <div>
-      <button
-        style={{ '--color': color }}
-        onClick={handleClick}
-      >
+      <button {...buttonProps}>
         {icon}
       </button>
     </div>
