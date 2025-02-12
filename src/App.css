@@ -29,29 +29,11 @@ html, body {
     align-items: center;
   }
 
-  .App .score {
+.score {
     grid-row-start: 1;
     grid-row-end: 4;
-  }
-
-  .App .game {
-    grid-row-start: 1;
-    grid-row-end: 3;
+}
+.card-bar {
     grid-column-start: 2;
     grid-column-end: 4;
-    user-select: none;
-    display: flex;
-    flex-direction: column;
-  }
-    .App .game > div {
-      font-size: 10rem;
-    }
-    .App .game > p {
-      font-size: 5rem;
-      margin: 0;
-    }
-
-  .App .card-bar {
-    grid-column-start: 2;
-    grid-column-end: 4;
-  }
+}

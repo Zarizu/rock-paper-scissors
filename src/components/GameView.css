@@ -1,0 +1,16 @@
+.game {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+}
+ .game div {
+    font-size: 10rem;
+ }
+ .game p {
+    font-size: 5rem;
+    margin: 0;
+ }

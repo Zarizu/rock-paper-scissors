@@ -1,12 +1,12 @@
 
-div {
+.color-card {
     flex-grow: 1;
     height: 100%;
     display: grid;
     place-items: center;
   }
   
-  div > button {
+  .color-card > button {
     user-select: none;
     border-radius: 50%;
     border: 0.2rem solid black;
@@ -17,11 +17,11 @@ div {
     transition: transform 0.3s ease;
   }
 
-  div > button:hover {
+  .color-card > button:hover {
     transform: translateY(-3rem) scale(1.5);
   }
   
-  div > button {
+  .color-card > button {
     background-color: var(--color, gray);
     
   }

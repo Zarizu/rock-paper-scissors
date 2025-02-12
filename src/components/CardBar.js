@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './styles/ColorCard.css';
+import './ColorCard.css';
 import ColorCard from './ColorCard';
 
-function CardBar({ setResult }) {
+function CardBar({ options, setOptions }) {
   const [isDisabled, setIsDisabled] = useState(false);
 
   const handleClick = () => {
@@ -14,7 +14,7 @@ function CardBar({ setResult }) {
     }, 0.3 * 1000);
   };
 
-  const BarProp = {
+  const props = {
     className: 'card-bar',
     onClick: handleClick,
     style: { pointerEvents: isDisabled ? 'none' : 'auto' },
@@ -22,10 +22,10 @@ function CardBar({ setResult }) {
   
   
   return (
-    <div {...BarProp}>
-        <ColorCard option="🏔️" setResult={setResult} />
-        <ColorCard option="📄" setResult={setResult} />
-        <ColorCard option="✂️" setResult={setResult} />
+    <div {...props}>
+        <ColorCard option="🏔️" options={options} setOptions={setOptions} />
+        <ColorCard option="📄" options={options} setOptions={setOptions} />
+        <ColorCard option="✂️" options={options} setOptions={setOptions} />
     </div>
   );
 }

@@ -1,26 +1,16 @@
 import { useState, useEffect } from 'react';
-import './styles/App.css';
-import CardBar from './CardBar';
+import './App.css';
+import CardBar from './components/CardBar';
+import GameView from './components/GameView';
 
 function App() {
-  const [result, setResult] = useState(['▶', '']);
-
-  const results = {
-    '🏆': 'green',
-    '🥀': 'orange',
-    '⚖️': 'lightgray',
-  };
-
-  const backgroundColor = results[result[0]] || 'white';
+  const [options, setOptions] = useState(['▶', '']);
 
   return (
     <div className="App">
       <div className="score"></div>
-      <div className="game" style={{ backgroundColor: backgroundColor }}>
-        <div>{result[0]}</div>
-        <p>{result[1]}</p>
-      </div>
-      <CardBar setResult={setResult}/>
+      <GameView options={options} />
+      <CardBar options={options} setOptions={setOptions} />
     </div>
   );
 }
