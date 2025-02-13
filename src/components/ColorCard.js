@@ -1,26 +1,25 @@
 import './ColorCard.css';
 
-function ColorCard({ option, options, setOptions }) {
+function ColorCard({ option, setPlayer }) {
   const colorMap = {
     '🏔️': 'blue',
     '📄': 'yellow',
-    '✂️': 'red'
+    '✂️': 'red',
   };
   const color = colorMap[option] || 'gray';
-  const icon = option;
 
-  const handleClick = () => setOptions([options[0], option]);
+  const handleClick = () => setPlayer(option);
 
   const props = {
     className: "color-card",
     style: { '--color': color },
-    onClick: handleClick, // Still needed, but now it's outside JSX
+    onClick: handleClick,
   };
   
   return (
     <div {...props}>
       <button>
-        {icon}
+        {option}
       </button>
     </div>
   );

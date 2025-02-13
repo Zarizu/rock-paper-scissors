@@ -29,7 +29,7 @@ html, body {
     align-items: center;
   }
 
-.score {
+.score-bar {
     grid-row-start: 1;
     grid-row-end: 4;
 }

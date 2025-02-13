@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ColorCard.css';
 import ColorCard from './ColorCard';
 
-function CardBar({ options, setOptions }) {
+function CardBar({ setPlayer }) {
   const [isDisabled, setIsDisabled] = useState(false);
 
   const handleClick = () => {
@@ -23,9 +23,9 @@ function CardBar({ options, setOptions }) {
   
   return (
     <div {...props}>
-        <ColorCard option="🏔️" options={options} setOptions={setOptions} />
-        <ColorCard option="📄" options={options} setOptions={setOptions} />
-        <ColorCard option="✂️" options={options} setOptions={setOptions} />
+        <ColorCard option="🏔️" setPlayer={setPlayer} />
+        <ColorCard option="📄" setPlayer={setPlayer} />
+        <ColorCard option="✂️" setPlayer={setPlayer} />
     </div>
   );
 }
