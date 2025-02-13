@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import "./GameView.css";
 
-function GameView({ versus: [player, enemy], setVersus: [setPlayer, setEnemy] }) {
-    const [finalResult, setFinalResult] = useState('');
+function GameView({ versus: [player, enemy], setVersus: [setPlayer, setEnemy], resultState: [finalResult, setFinalResult]}) {
     const emojis = ['🏔️', '📄', '✂️'];
 
     useEffect(() => {
