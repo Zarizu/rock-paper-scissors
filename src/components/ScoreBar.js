@@ -1,9 +1,23 @@
 import { useState, useEffect } from 'react';
 import './ScoreBar.css';
 
-function ScoreBar({ options, setOptions }) {
+function ScoreBar({ resultState: [finalResult, setFinalResult] }) {
 
-  //useEffect(() => console.log("clicqdeo"), options[0]);
+  useEffect(() => {
+    
+  }, [finalResult]);
+
+  let endings = { 
+    WIN: ['🏆', 'YOU WON!', 'green'], 
+    LOSS: ['🥀', 'YOU LOST', 'orange'], 
+    DRAW: ['⚖️', "IT'S A DRAW", 'lightgray'] 
+  };
+
+  const resultMap = {
+      '🏔️': { '📄': endings.LOSS, '✂️': endings.WIN },
+      '📄': { '✂️': endings.LOSS, '🏔️': endings.WIN },
+      '✂️': { '🏔️': endings.LOSS, '📄': endings.WIN }
+  };
 
   const props = {
     className: 'score-bar',

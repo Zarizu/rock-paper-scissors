@@ -1,45 +1,56 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./GameView.css";
 
 function GameView({ versus: [player, enemy], setVersus: [setPlayer, setEnemy], resultState: [finalResult, setFinalResult]}) {
     const emojis = ['🏔️', '📄', '✂️'];
+    const [Id, option] = player;
+    const viewTimeRef = useRef(null);
 
     useEffect(() => {
-        if (emojis.includes(player)) {
-            const newEnemy = emojis[Math.floor(Math.random() * emojis.length)];
-            setEnemy(newEnemy);
-            setFinalResult(PlayGame(player, newEnemy));
-            
-            setTimeout(() => setPlayer(''), 0 * 1000);
-        }
-    }, [player]);
+        if (!(emojis.includes(option))) return;
+
+        if (viewTimeRef.current) clearTimeout(viewTimeRef.current);
+
+        const newEnemy = emojis[Math.floor(Math.random() * emojis.length)];
+        setEnemy(newEnemy);
+        setFinalResult(PlayGame(option, newEnemy));
+
+        viewTimeRef.current = setTimeout(() => {
+            setPlayer([false,'']);
+            setEnemy('▶');
+            setFinalResult('');
+        }, 2 * 1000);
+        
+    }, [Id]);
 
     return (
         <div className="game" style={{ backgroundColor: finalResult[2] }}>
-            <div>{enemy}</div>
-            <p>{finalResult[0]}</p>
-            <p>{finalResult[1]}</p>
+            {
+                (emojis.includes(option))
+                ? <div>{option} vs {enemy}</div>
+                : <div>{enemy}</div>
+            }
         </div>
     );
 }
 
-function PlayGame(player, enemy) {
-    let endings = { 
+function PlayGame(option, enemy) {
+    let result = { 
         WIN: ['🏆', 'YOU WON!', 'green'], 
-        LOSS: ['🥀', 'YOU LOST', 'orange'], 
+        LOSS: ['🥀', 'YOU LOST', 'orangered'], 
         DRAW: ['⚖️', "IT'S A DRAW", 'lightgray'] 
     };
 
     const resultMap = {
-        '🏔️': { '📄': endings.LOSS, '✂️': endings.WIN },
-        '📄': { '✂️': endings.LOSS, '🏔️': endings.WIN },
-        '✂️': { '🏔️': endings.LOSS, '📄': endings.WIN }
+        '🏔️': { '📄': result.LOSS, '✂️': result.WIN },
+        '📄': { '✂️': result.LOSS, '🏔️': result.WIN },
+        '✂️': { '🏔️': result.LOSS, '📄': result.WIN }
     };
 
-    const finalResult = resultMap[player]?.[enemy] || endings.DRAW;
+    const finalResult = resultMap[option]?.[enemy] || result.DRAW;
 
     console.log('');
-    console.log(`${player} vs ${enemy}`);
+    console.log(`${option} ✖️ ${enemy}`);
     console.log(finalResult[0], finalResult[1]);
     return finalResult;
 }

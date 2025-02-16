@@ -6,7 +6,7 @@ import ScoreBar from './components/ScoreBar';
 
 function App() {
   const [enemy, setEnemy] = useState('▶');
-  const [player, setPlayer] = useState('');
+  const [player, setPlayer] = useState([false, '']);
   const [finalResult, setFinalResult] = useState('');
   
   return (
@@ -16,7 +16,7 @@ function App() {
         setVersus={[setPlayer, setEnemy]} 
         resultState={[finalResult, setFinalResult]}
       />
-      <ScoreBar />
+      <ScoreBar resultState={[finalResult, setFinalResult]}/>
       <CardBar setPlayer={setPlayer} />
     </div>
   );

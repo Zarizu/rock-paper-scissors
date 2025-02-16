@@ -8,7 +8,7 @@ function ColorCard({ option, setPlayer }) {
   };
   const color = colorMap[option] || 'gray';
 
-  const handleClick = () => setPlayer(option);
+  const handleClick = () => setPlayer([Math.random(), option]);
 
   const props = {
     className: "color-card",
