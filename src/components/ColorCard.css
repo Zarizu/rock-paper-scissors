@@ -9,7 +9,7 @@
   .color-card > button {
     user-select: none;
     border-radius: 50%;
-    border: 0.2rem solid black;
+    border: 0.3rem solid black;
     height: 90%;
     aspect-ratio: 1 / 1;
     font-size: 3em;

@@ -1,4 +1,8 @@
 .score-bar {
+    height: 100%;
+    user-select: none;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 }

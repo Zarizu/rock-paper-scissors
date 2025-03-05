@@ -1,7 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import "./GameView.css";
 
-function GameView({ versus: [player, enemy], setVersus: [setPlayer, setEnemy], resultState: [finalResult, setFinalResult]}) {
+function GameView({
+    versus: [player, enemy],
+    setVersus: [setPlayer, setEnemy],
+    resultState: [result, setResult]}) {
+
+
+    
     const emojis = ['🏔️', '📄', '✂️'];
     const [Id, option] = player;
     const viewTimeRef = useRef(null);
@@ -13,46 +19,49 @@ function GameView({ versus: [player, enemy], setVersus: [setPlayer, setEnemy], r
 
         const newEnemy = emojis[Math.floor(Math.random() * emojis.length)];
         setEnemy(newEnemy);
-        setFinalResult(PlayGame(option, newEnemy));
+        setResult(PlayGame(option, newEnemy));
 
         viewTimeRef.current = setTimeout(() => {
             setPlayer([false,'']);
-            setEnemy('▶');
-            setFinalResult('');
+            setEnemy('');
+            setResult('▶');
         }, 2 * 1000);
         
     }, [Id]);
 
     return (
-        <div className="game" style={{ backgroundColor: finalResult[2] }}>
+        <div className="game" style={{ backgroundColor: result[2] }}>
             {
                 (emojis.includes(option))
-                ? <div>{option} vs {enemy}</div>
-                : <div>{enemy}</div>
+                ? <div> {option} vs {enemy} </div>
+                : <div>
+                    {result[0]}
+                    {result[1]}
+                  </div>
             }
         </div>
     );
 }
 
 function PlayGame(option, enemy) {
-    let result = { 
+    let round = { 
         WIN: ['🏆', 'YOU WON!', 'green'], 
         LOSS: ['🥀', 'YOU LOST', 'orangered'], 
         DRAW: ['⚖️', "IT'S A DRAW", 'lightgray'] 
     };
 
     const resultMap = {
-        '🏔️': { '📄': result.LOSS, '✂️': result.WIN },
-        '📄': { '✂️': result.LOSS, '🏔️': result.WIN },
-        '✂️': { '🏔️': result.LOSS, '📄': result.WIN }
+        '🏔️': { '📄': round.LOSS, '✂️': round.WIN },
+        '📄': { '✂️': round.LOSS, '🏔️': round.WIN },
+        '✂️': { '🏔️': round.LOSS, '📄': round.WIN }
     };
 
-    const finalResult = resultMap[option]?.[enemy] || result.DRAW;
+    const result = resultMap[option]?.[enemy] || round.DRAW;
 
     console.log('');
     console.log(`${option} ✖️ ${enemy}`);
-    console.log(finalResult[0], finalResult[1]);
-    return finalResult;
+    console.log(...result);
+    return result;
 }
 
 export default GameView;

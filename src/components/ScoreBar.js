@@ -1,32 +1,58 @@
 import { useState, useEffect } from 'react';
+import ScoreRound from './ScoreRound.js';
 import './ScoreBar.css';
 
-function ScoreBar({ resultState: [finalResult, setFinalResult] }) {
+function ScoreBar({ resultState: [result, setResult] }) {
+  const [score, setScore] = useState(Array(5).fill(null));
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    
-  }, [finalResult]);
+    if (result === '▶') return;
+    if (count >= 5) return;
 
-  let endings = { 
-    WIN: ['🏆', 'YOU WON!', 'green'], 
-    LOSS: ['🥀', 'YOU LOST', 'orange'], 
-    DRAW: ['⚖️', "IT'S A DRAW", 'lightgray'] 
-  };
+    setScore(prevScore => {
+      const newScore = [...prevScore];
+      newScore[count] = result;
+      return newScore;
+    });
 
-  const resultMap = {
-      '🏔️': { '📄': endings.LOSS, '✂️': endings.WIN },
-      '📄': { '✂️': endings.LOSS, '🏔️': endings.WIN },
-      '✂️': { '🏔️': endings.LOSS, '📄': endings.WIN }
-  };
+    setCount(prevCount => prevCount + 1);
+  }, [result]);
 
-  const props = {
-    className: 'score-bar',
-  };
-  
+  useEffect(() => {
+    if (count >= 5) finalResult(score, setResult);
+  }, [count, score]);
+
+  useEffect(() => {
+    if (count == 0) return;
+    console.log("Score atualizado:", score);
+    console.log("Count atualizado:", count);
+  }, [score, count]);
+
   return (
-    <div {...props}>
+    <div className="score-bar">
+      {score.map((_, index) => (
+        <ScoreRound key={index} result={score[index] || null} />
+      ))}
     </div>
   );
+}
+
+function finalResult(score, setResult) {
+  let points = 0;
+  let finalResult = { 
+    WIN: ['🏆', 'YOU WON!', 'green'], 
+    LOSS: ['🥀', 'YOU LOST', 'orangered'], 
+    DRAW: ['⚖️', "IT'S A DRAW", 'lightgray'] 
+  };
+  score.forEach((result) => {
+    if (result === '🏆') points++;
+    if (result === '🥀') points--;
+  });
+
+  if (points > 0) setResult(finalResult.WIN);
+  else if (points === 0) setResult(finalResult.DRAW)
+  else setResult(finalResult.LOSS)
 }
 
 export default ScoreBar;

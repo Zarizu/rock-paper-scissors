@@ -5,18 +5,20 @@ import GameView from './components/GameView';
 import ScoreBar from './components/ScoreBar';
 
 function App() {
-  const [enemy, setEnemy] = useState('▶');
+  const [enemy, setEnemy] = useState('');
   const [player, setPlayer] = useState([false, '']);
-  const [finalResult, setFinalResult] = useState('');
+  const [result, setResult] = useState('▶');
+  const [finalResult, setFinalResult] = useState('▶');
+
   
   return (
     <div className="App">
       <GameView 
         versus={[player, enemy]} 
         setVersus={[setPlayer, setEnemy]} 
-        resultState={[finalResult, setFinalResult]}
+        resultState={[result, setResult]}
       />
-      <ScoreBar resultState={[finalResult, setFinalResult]}/>
+      <ScoreBar resultState={[result, setResult]}/>
       <CardBar setPlayer={setPlayer} />
     </div>
   );
